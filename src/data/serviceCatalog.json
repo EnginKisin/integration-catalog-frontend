@@ -1,0 +1,29 @@
+[
+  {
+    "id": "INT-001",
+    "serviceName": "Customer 360 Sync",
+    "sourceSystem": "Salesforce CRM",
+    "destinationSystem": "SAP S/4HANA",
+    "middleware": "MuleSoft Anypoint",
+    "syncType": "async",
+    "formatSource": "json",
+    "formatDestination": "idoc",
+    "retryPolicy": "3 retries / 30s",
+    "authenticationType": "OAuth 2.0",
+    "status": "active",
+    "lastUpdated": "2 saat önce",
+    "sourceToMiddlewareRequest": "{ \"customer\": { \"id\": \"12345\", \"name\": \"Acme Corp\" } }",
+    "middlewareToDestinationRequest": "<IDOC><CUSTOMER><ID>12345</ID><NAME>Acme Corp</NAME></CUSTOMER></IDOC>",
+    "middlewareResponseExample": "{ \"success\": true, \"message\": \"Payload accepted\" }",
+    "destinationResponseExample": "<Response><Status>OK</Status></Response>",
+    "manualMappings": [
+      {
+        "id": "map-001",
+        "sourceField": "customer.id",
+        "destinationField": "CUSTOMER_ID",
+        "mappingType": "manual",
+        "transformationRule": "string->idoc"
+      }
+    ]
+  }
+]
