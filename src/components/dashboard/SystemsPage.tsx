@@ -64,7 +64,6 @@ function SystemManager({ onChanged, onDirtyChange, onBusyChange }: Pick<SystemsP
     try {
       await action()
     } finally {
-      // Reconcile even on conflicts/uncertain network outcomes; never repeat a write.
       resource.reload()
       onChanged()
       onBusyChange(false)

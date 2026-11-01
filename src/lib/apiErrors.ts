@@ -2,7 +2,6 @@ export type ErrorParams = Record<string, string | number | boolean>
 export interface ApiViolation { field: string | null; code: string; params: ErrorParams }
 export interface ErrorMetadata { requestId?: string; violations?: ApiViolation[]; params?: ErrorParams }
 
-// Keep user-facing copy independent of backend fallback text and HTTP wording.
 export const apiErrorMessages: Record<string, string> = {
   SESSION_INVALID: 'Oturumunuz artık geçerli değil. Yeniden giriş yapın.',
   AUTH_REQUIRED: 'Bu işlem için giriş yapmanız gerekiyor.',

@@ -19,7 +19,6 @@ export async function exportFlowMap(records: IntegrationRecord[], summary: strin
   const svg = new Blob([flowMapSvg(records, { report })], { type: 'image/svg+xml;charset=utf-8' })
   if (format === 'svg') { download(svg, `${name}.svg`); return }
   const height = flowHeight(records) + flowReportHeight(summary)
-  // Keep rasterization within reliable browser canvas limits; SVG has no such limit.
   if (height * 2 > 16000 || FLOW_WIDTH * height * 4 > 32000000) throw new Error('Bu çizim PNG için çok büyük. SVG olarak indirin veya filtrelerle akış sayısını azaltın.')
   const url = URL.createObjectURL(svg)
   try {

@@ -42,7 +42,6 @@ export function permissionInput(values: Permission[]): Permission[] {
 export function parseAccountFragment(location: Pick<Location, 'pathname' | 'hash'>, history: Pick<History, 'replaceState'>): Omit<AccountLink, 'nonce'> | null {
   if (location.pathname !== '/account/action') return null
   const params = new URLSearchParams(location.hash.replace(/^#/, ''))
-  // Run before React mounts. Remove the whole fragment (including malformed links).
   history.replaceState(null, '', '/account/action')
   const purpose = params.get('purpose')
   const token = params.get('token')

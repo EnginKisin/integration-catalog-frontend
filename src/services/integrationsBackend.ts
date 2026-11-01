@@ -27,7 +27,6 @@ interface BackendIntegration {
 
 function formatDate(value?: string | null): string {
   if (!value) return '—'
-  // Backend LocalDateTime has no offset; never append a UTC suffix.
   const parsed = new Date(value)
   return Number.isNaN(parsed.getTime()) ? value : parsed.toLocaleString('tr-TR', { dateStyle: 'medium', timeStyle: 'short' })
 }
@@ -73,14 +72,12 @@ export async function fetchIntegrations(): Promise<IntegrationRecord[]> {
   return items.map(toRecord)
 }
 export async function createIntegration(input: IntegrationDraftInput): Promise<IntegrationRecord> {
-  // Creation is a single draft write. No configs, schemas or completion side effects.
   return toRecord(await post<BackendIntegration>('/integrations', toRequest(input)))
 }
 export async function updateIntegration(id: string, input: IntegrationDraftInput): Promise<IntegrationRecord> {
   return toRecord(await put<BackendIntegration>(`/integrations/${id}`, toRequest(input)))
 }
 export async function fetchIntegrationWorkspace(id: string): Promise<IntegrationWorkspaceData> {
-  // Verify the parent first: mapping GET alone can return [] for a missing record.
   const record = await get<BackendIntegration>(`/integrations/${id}`)
   const [schemas, mappings] = await Promise.all([
     get<MappingSchema[]>(`/integrations/${id}/mappings/schemas`), get<FieldMapping[]>(`/integrations/${id}/mappings/fields`),

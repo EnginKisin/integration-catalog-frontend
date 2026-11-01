@@ -71,7 +71,6 @@ export function contentRequest(type: SchemaType, format: ApiPayloadFormat, text:
     : { schemaType: type, format, rawContent: text }
 }
 
-// These checks explain saved state. The backend still validates file readability and XML.
 export function schemaContentIssue(record: Pick<IntegrationRecord, 'formatSource' | 'formatDestination'>, schema: MappingSchema): string | undefined {
   const format = schemaFormat(schema)
   const expected = expectedSchemaFormat(record, schema.schemaType)

@@ -40,7 +40,7 @@ export function suggestionIssues(suggestions: SuggestionDraft[], rows: MappingVa
   const knownFields = new Map<MappingSchema, Set<string> | undefined>()
   for (const row of rows) {
     if (!row.targetFieldPath.trim() || !row.sourceFieldPath.trim() || !pairForMapping(pairs, row)) continue
-    try { const value = canonicalMapping(row, pairs); targets.add(JSON.stringify([value.sourceSchemaId, value.targetSchemaId, value.targetFieldPath])) } catch { /* Incomplete manual drafts remain editable. */ }
+    try { const value = canonicalMapping(row, pairs); targets.add(JSON.stringify([value.sourceSchemaId, value.targetSchemaId, value.targetFieldPath])) } catch { continue }
   }
   for (const suggestion of suggestions.filter((item) => item.selected)) {
     try {

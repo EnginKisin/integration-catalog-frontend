@@ -4,7 +4,6 @@ import { ApiError } from '../services/api'
 export function asError(error: unknown): Error {
   return error instanceof Error ? error : new Error('İşlem tamamlanamadı.')
 }
-// A changed loader discards the previous request's result. Writes never run in effects.
 export function useResource<T>(loader: () => Promise<T>) {
   const [version, setVersion] = useState(0)
   const [state, setState] = useState<{ data?: T; error?: Error; loading: boolean }>({ loading: true })

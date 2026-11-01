@@ -89,7 +89,6 @@ function WorkspaceContent({ initial, ...props }: Props & { initial: IntegrationW
         catch (error) {
           if (error instanceof ApiError && (error.status === 0 || error.status >= 500)) setStale(true)
           else if (options?.refreshOnError) {
-            // A multi-slot save may have committed earlier slots. Keep failed drafts mounted.
             try { setData(await fetchIntegrationWorkspace(record.id)); setReviewed(false) }
             catch { setStale(true) }
           }

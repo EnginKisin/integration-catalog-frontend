@@ -73,7 +73,6 @@ async function send<T>(path: string, init: RequestInit, responseType: 'json' | '
     if (retryAt) cooldowns.set(cooldownKey(path), retryAt)
     const code = readErrorCode(error.code)
     const metadata = readErrorMetadata(error, response.headers.get('X-Request-ID'))
-    // Backend fallback text is English. Localize codes, never parse or expose it.
     throw new ApiError(errorText(code, metadata.params, response.status), response.status,
       metadata.violations.map(violationText), retryAt, code, metadata)
   }
@@ -121,7 +120,6 @@ export async function request<T = void>(path: string, init: RequestInit = {}, re
     if (error instanceof ApiError) {
       if (error.status === 401 && !path.startsWith('/auth/')) expiredSession()
       if (error.status === 401 && ['/auth/password/change', '/auth/email/change'].includes(path)) {
-        // A wrong current password can also be 401. Only clear a genuinely expired session.
         try { await send('/auth/me', { method: 'GET' }) }
         catch (failure) { if (failure instanceof ApiError && failure.status === 401) expiredSession() }
       }

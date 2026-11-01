@@ -36,7 +36,6 @@ export async function fetchAiJob(id: string, jobId: string, signal?: AbortSignal
   return checkedJob(await request<AiJob>(jobPath(id, jobId), { signal }))
 }
 export async function fetchAiResult(id: string, jobId: string, signal?: AbortSignal): Promise<AiMappingResult> {
-  // Use the authenticated same-origin endpoint, never an arbitrary provider URL.
   const result = await request<AiMappingResult>(`${jobPath(id, jobId)}/result`, { signal })
   if (!result || result.jobId !== jobId || !revision(result.contextRevision) || typeof result.stale !== 'boolean' || !Array.isArray(result.suggestions) || !Array.isArray(result.unmatchedSourceFields) || !Array.isArray(result.unmatchedTargetFields) || !Array.isArray(result.warnings)) throw invalid()
   const ids = new Set<string>()

@@ -74,7 +74,6 @@ export function mappingRequests(record: Pick<IntegrationRecord, 'hasMiddleware'>
 }
 
 function object(value: unknown): value is Record<string, unknown> { return value !== null && typeof value === 'object' && !Array.isArray(value) }
-// Preserve server field identities, including namespaces, attributes and repeated elements.
 function xmlFields(definition: unknown): SchemaField[] {
   const fields: SchemaField[] = []
   const visit = (nodes: unknown, depth: number) => {
@@ -111,7 +110,6 @@ function valueType(value: unknown): string {
   if (Array.isArray(value)) return 'array'
   return typeof value === 'object' ? 'object' : typeof value
 }
-// A bounded field picker, not a JSON Schema validator. Unsupported/dynamic paths remain editable by hand.
 export function extractFields(definition: unknown, mode: FieldMode = 'auto', fieldLimit = 250): FieldTree {
   const fields = new Map<string, SchemaField>()
   const warnings = new Set<string>()

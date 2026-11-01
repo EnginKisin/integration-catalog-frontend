@@ -62,7 +62,6 @@ export interface IntegrationRecord extends IntegrationDraftInput {
 export interface MappingSchema {
   id: number
   schemaType: SchemaType
-  // Older API responses omit payload metadata and represent JSON objects.
   format?: ApiPayloadFormat
   schemaDefinition: Record<string, unknown>
   samplePayload?: Record<string, unknown> | null

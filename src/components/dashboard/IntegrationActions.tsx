@@ -40,9 +40,6 @@ export function IntegrationActions({ name, disabled, busy, error, onDelete }: Pr
 
   return <>
     <div ref={menuRef} className="relative" onBlur={(event) => {
-      // Safari may not focus a clicked button. A null relatedTarget must not
-      // remove the action between pointerdown and click; outside clicks are
-      // handled separately by the document listener.
       if (event.relatedTarget instanceof Node && !event.currentTarget.contains(event.relatedTarget)) setMenuOpen(false)
     }}>
       <button ref={triggerRef} type="button" className="btn" disabled={busy} aria-expanded={menuOpen} aria-controls={menuId} onClick={() => setMenuOpen((open) => !open)}>

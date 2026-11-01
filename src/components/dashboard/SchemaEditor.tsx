@@ -108,7 +108,6 @@ export function SchemaEditor({ record, schemas, busy, saving, onDirty, mutate, o
     const intent = saveIntent(event)
     void mutate(async () => {
       setFailedType(undefined)
-      // Prepare every changed slot before the first write. Each upsert is a separate transaction.
       const changes = allowed.filter(changed).map((type) => ({ type, save: prepare(type) }))
       for (const { type, save } of changes) {
         try {

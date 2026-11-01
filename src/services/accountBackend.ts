@@ -3,7 +3,6 @@ import { authChange } from './auth.ts'
 import { normalizeEmail, validateNewPassword } from '../lib/account.ts'
 import type { AccountLink } from '../lib/account'
 export async function requestPasswordReset(email: string) {
-  // Never surface account-dependent response content to the request screen.
   await authChange(() => post('/auth/password-reset/request', { email: normalizeEmail(email) }))
 }
 export function completeAccountAction(link: Pick<AccountLink, 'purpose' | 'token'>, newPassword: string, confirmation: string) {

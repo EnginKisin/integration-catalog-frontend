@@ -45,7 +45,6 @@ export function layoutFlows(records: IntegrationRecord[]) {
     }
   }
   const columns = (['source', 'middleware', 'destination'] as const).map((role) => [...nodes.values()].filter((node) => node.role === role))
-  // Keep the two legs of each integration in the same port order inside a hub.
   const order = new Map<string, number>()
   let rank = 0
   for (const hub of columns[1]) for (const record of hub.records) order.set(record.id, rank++)
@@ -88,8 +87,6 @@ export function layoutFlows(records: IntegrationRecord[]) {
 
 export const flowHeight = (records: IntegrationRecord[]) => layoutFlows(records).height
 
-// A connected group stays on one PDF page, so a shared hub is never repeated
-// merely because a fixed number of integration records was reached.
 export function flowComponents(records: IntegrationRecord[]): IntegrationRecord[][] {
   const parents = records.map((_, index) => index)
   const root = (index: number): number => parents[index] === index ? index : (parents[index] = root(parents[index]))
@@ -107,7 +104,6 @@ export function flowComponents(records: IntegrationRecord[]): IntegrationRecord[
   return [...groups.values()]
 }
 
-// All user-controlled content is XML escaped before entering the standalone SVG.
 const xml = (value: unknown) => String(value ?? '').replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' })[character]!)
 const shorten = (value: string, length: number) => Array.from(value).length > length ? Array.from(value).slice(0, length - 1).join('') + '…' : value
 const reportLines = (summary: string) => Array.from({ length: Math.max(1, Math.ceil(Array.from(summary).length / 120)) }, (_, index) => Array.from(summary).slice(index * 120, (index + 1) * 120).join(''))
@@ -139,7 +135,6 @@ export function flowMapSvg(records: IntegrationRecord[], options: SvgOptions = {
     ${text(28, 59, `${records.length} entegrasyon · ${report.date}${report.page ? ` · ${report.page}` : ''}`, '#91a0b8', 11)}
     ${reportLines(report.summary).map((line, index) => text(28, 82 + index * 18, line, '#bdcadc', 11)).join('')}
     <line x1="28" y1="${reportHeight - 12}" x2="972" y2="${reportHeight - 12}" stroke="#293143"/>` : ''
-  // Paint the selected path last so it stays traceable through shared nodes.
   const routeMarkup = [...layout.routes].sort((a, b) => Number(a.record.id === selected?.id) - Number(b.record.id === selected?.id)).map((route) => {
     const { record, color, labelX, labelY } = route
     const active = selected?.id === record.id

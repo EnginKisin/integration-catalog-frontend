@@ -24,7 +24,6 @@ export function RowActions({ label, disabled = false, items }: { label: string; 
     const trigger = triggerRef.current
     const popover = popoverRef.current
     if (!trigger || !popover || disabled) return
-    // The top layer keeps menus outside the table's scrolling/clipping area.
     popover.showPopover({ source: trigger })
     const anchor = trigger.getBoundingClientRect()
     const { width, height } = popover.getBoundingClientRect()

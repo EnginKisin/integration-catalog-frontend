@@ -102,7 +102,6 @@ for (const width of [1440, 390]) {
   test(`${width}px: görünüm ekrana sığar ve seçili akış ayrıntıları erişilebilir`, async ({ page }, testInfo) => {
     await page.setViewportSize({ width, height: 1000 })
     await setup(page)
-    // The row spans a scrollable canvas; select its visible title on mobile.
     await page.locator('[data-flow-id="30"] text').filter({ hasText: 'Sipariş aktarımı' }).click()
     await page.screenshot({ path: testInfo.outputPath(`flow-map-${width}.png`), fullPage: true })
     const dimensions = await page.evaluate(() => ({ width: innerWidth, scrollWidth: document.documentElement.scrollWidth }))

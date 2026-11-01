@@ -25,7 +25,6 @@ export interface StudioLink {
 export interface StudioPairOption { key: string; label: string; disabled: boolean }
 export interface StudioPaneData { name: string; caption: string; fileName: string; format: string; fields: StudioField[] }
 
-// Read labels without splitting dots/slashes inside quoted JSON keys or XML namespaces.
 function fieldName(field: SchemaField) {
   if (field.name) return field.name
   if (field.path.startsWith('/')) {

@@ -14,8 +14,6 @@ export async function mockCatalog(page, { role = 'ADMIN', item, configs = [], sc
   uploadCaptures.set(page, [])
   if (!instrumentedPages.has(page)) {
     instrumentedPages.add(page)
-    // Chromium's intercepted postData omits file bytes. Observe the actual FormData
-    // passed to fetch, while still sending the request through the browser normally.
     await page.exposeBinding('__catalogUploadCapture', ({ page: source }, body) => uploadCaptures.get(source).push(body))
     await page.addInitScript(() => {
       const originalFetch = window.fetch.bind(window)

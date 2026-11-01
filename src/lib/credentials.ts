@@ -2,8 +2,6 @@ import type { AuthType } from '../types/integration'
 import { parseJsonObject } from './integrationWorkflow.ts'
 
 interface CredentialField { key: string; label: string; secret?: boolean; optional?: boolean; placeholder?: string }
-// These are frontend defaults for the API's free-form map. Custom contracts
-// remain available through the JSON editor, without fetching stored secrets.
 export const credentialFields: Record<Exclude<AuthType, 'NONE'>, CredentialField[]> = {
   BASIC_AUTH: [{ key: 'username', label: 'Kullanıcı adı' }, { key: 'password', label: 'Parola', secret: true }],
   API_KEY: [{ key: 'apiKey', label: 'API anahtarı', secret: true }],
