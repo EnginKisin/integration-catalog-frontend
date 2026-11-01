@@ -54,8 +54,8 @@ Inspect confidence labels and explanations, edit field paths, and select the pro
 ### 1. Install dependencies
 
 ```sh
-git clone https://github.com/EnginKisin/vibe-integration-catalog-frontend.git
-cd vibe-integration-catalog-frontend
+git clone https://github.com/EnginKisin/integration-catalog-frontend.git
+cd integration-catalog-frontend
 npm ci
 ```
 
