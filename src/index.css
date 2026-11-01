@@ -6,7 +6,7 @@
   color-scheme: dark;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-feature-settings: 'cv11' on;
-  background-color: #0f172a;
+  background-color: #0b0f18;
   color: #e2e8f0;
   line-height: 1.5;
   text-rendering: optimizeLegibility;
@@ -25,8 +25,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top, rgba(124, 58, 237, 0.12), transparent 25%),
-    linear-gradient(180deg, #020617 0%, #0b1123 100%);
+  background: #0b0f18;
 }
 
 #root {
@@ -43,4 +42,41 @@ select {
 ::selection {
   background: rgba(124, 58, 237, 0.3);
   color: inherit;
+}
+
+@layer components {
+  .panel { @apply rounded-xl border border-[#293143] bg-[#101620] p-5; }
+  .field { @apply block min-h-10 w-full min-w-0 rounded-md border border-[#303b50] bg-[#0c121c] px-3 py-2 text-[13px] text-slate-100 outline-none transition-colors placeholder:text-slate-500 focus:border-violet-400 focus:ring-2 focus:ring-violet-400/15 disabled:cursor-not-allowed disabled:opacity-60; }
+  .label { @apply block space-y-1 text-xs font-medium text-slate-300; }
+  .btn { @apply inline-flex min-h-9 items-center justify-center gap-2 rounded-md border border-[#343e52] bg-[#192130] px-3 py-2 text-xs font-medium text-slate-200 transition hover:border-slate-500 hover:bg-[#222c3e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400 disabled:cursor-not-allowed disabled:opacity-40; }
+  .btn-primary { @apply btn border-[#9874e4] bg-[#8258dd] text-white hover:border-[#af8ff1] hover:bg-[#9067e8]; }
+  .btn-danger { @apply btn border-rose-400/30 text-rose-200 hover:bg-rose-500/15; }
+  .error-panel { @apply rounded-lg border border-rose-400/30 bg-rose-500/10 p-3 text-sm text-rose-200; }
+  .success-panel { @apply rounded-lg border border-emerald-400/30 bg-emerald-500/10 p-3 text-sm text-emerald-200; }
+  .hint { @apply text-xs leading-5 text-slate-400; }
+  .catalog-table th { @apply px-4 py-3; }
+  .catalog-table td { @apply px-4 py-4; }
+  .section-tabs { @apply flex gap-1 overflow-x-auto border-b border-white/10; }
+  .section-tab { @apply shrink-0 whitespace-nowrap border-b-2 border-transparent px-3 py-2 text-xs font-medium text-slate-400 transition hover:text-white focus-visible:outline focus-visible:outline-violet-400 disabled:opacity-40; }
+  .section-tab[aria-pressed='true'] { @apply border-violet-400 text-violet-200; }
+  .integration-flow .panel { @apply p-4; }
+  .integration-flow .field { @apply min-h-9 py-1.5 text-[13px]; }
+  .integration-flow .btn,
+  .integration-flow .btn-primary,
+  .integration-flow .btn-danger { @apply min-h-8 py-1; }
+  .integration-flow .hint { @apply leading-relaxed; }
+}
+button, a, input, select, textarea { touch-action: manipulation; }
+select option { background: #0f172a; }
+input[type='checkbox'] { accent-color: #7c3aed; }
+@media (pointer: coarse) {
+  .btn, .field, .section-tab { min-height: 44px; }
+  .integration-flow .btn,
+  .integration-flow .btn-primary,
+  .integration-flow .btn-danger,
+  .integration-flow .field { min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
 }

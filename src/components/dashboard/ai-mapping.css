@@ -1,0 +1,68 @@
+.ai-assistant { margin: 0 0 18px; overflow: hidden; border: 1px solid #9c7bd447; border-radius: 9px; background: #121725; color: #c8d2e4; font-size: 11px; }
+.ai-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 17px 18px; background: #9c7bd406; }
+.ai-heading-icon { display: grid; place-items: center; width: 35px; height: 35px; border: 1px solid #ae8be34d; border-radius: 8px; background: #ae8be30d; color: #c1a5ee; }
+.ai-heading > div { flex: 1; min-width: 200px; }
+.ai-heading h3 { margin: 0; color: #e2d9f4; font-size: 13px; font-weight: 550; }
+.ai-heading h3 > span { margin-left: 7px; padding: 2px 5px; border: 1px solid #a78bfa36; border-radius: 4px; color: #b8a3df; font-size: 9px; font-weight: 400; }
+.ai-heading p { margin: 5px 0 0; color: #92a0b7; font-size: 11px; line-height: 1.8; }
+.ai-select-all, .ai-suggestion-top label { display: flex; align-items: center; gap: 8px; color: #bdc8da; font-size: 11px; }
+.ai-assistant input[type='checkbox'] { width: 13px; height: 13px; accent-color: #a78bfa; }
+.ai-availability, .ai-message { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 8px; padding: 12px 18px; border-top: 1px solid #293348; color: #a0adc4; font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
+.ai-availability > .app-icon, .ai-message > .app-icon { width: 14px; height: 14px; margin-top: 3px; }
+.ai-availability > span, .ai-message > span { flex: 1; min-width: 180px; }
+.ai-text-button { border: 0; background: none; padding: 2px; color: #c0aaeb; font-size: 10px; cursor: pointer; }
+.ai-text-button:hover:not(:disabled) { color: #e3d6ff; text-decoration: underline; text-underline-offset: 3px; }
+.ai-text-button:disabled { opacity: .4; cursor: default; }
+.ai-assistant :focus-visible { outline: 2px solid #b7a0ef; outline-offset: 3px; }
+.ai-progress { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-top: 1px solid #293348; }
+.ai-progress strong { font-size: 11px; color: #cdb9f0; font-weight: 500; }
+.ai-progress p { margin: 4px 0 0; color: #8d9cb5; font-size: 10px; line-height: 1.8; }
+.ai-spinner { width: 19px; height: 19px; flex: 0 0 auto; border: 2px solid #b7a0ef25; border-top-color: #b7a0ef; border-radius: 50%; animation: app-spin 1s linear infinite; }
+.ai-message.is-error { color: #f0afba; background: #d4677d08; border-color: #d4677d22; }
+.ai-message.is-warning { color: #d5be91; background: #b28c4008; border-color: #b28c4022; }
+.ai-message.is-success { color: #9acfb9; background: #66b39308; border-color: #66b39322; }
+.ai-results { padding: 18px; border-top: 1px solid #443752; }
+.ai-result-heading { display: flex; align-items: flex-start; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-bottom: 16px; }
+.ai-result-heading h4 { margin: 0; color: #e0d7f2; font-size: 13px; font-weight: 500; }
+.ai-result-heading p { margin: 5px 0 0; color: #98a6bd; font-size: 10px; line-height: 1.8; }
+.ai-results > .ai-message { margin: 12px 0; padding: 10px 12px; border: 1px solid #b28c4022; border-radius: 6px; }
+.ai-select-all { margin: 0 0 10px; }
+.ai-select-all > span { margin-left: auto; color: #9b8cb8; font-size: 10px; }
+.ai-suggestion-list { display: grid; gap: 10px; }
+.ai-suggestion { padding: 13px 14px; border: 1px solid #303a4e; border-radius: 7px; background: #0e1520; }
+.ai-suggestion.is-selected { border-color: #ad8be64d; background: #a78bfa04; }
+.ai-suggestion-top { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 13px; }
+.ai-suggestion-top > button { margin-left: auto; }
+.ai-confidence { padding: 2px 6px; border: 1px solid #caa56d33; border-radius: 4px; color: #d0b98c; font-size: 9px; }
+.ai-confidence.is-high { color: #98cbb8; border-color: #6eb89a33; background: #6eb89a08; }
+.ai-edited { color: #bd9ce5; font-size: 9px; }
+.ai-paths { display: grid; grid-template-columns: minmax(0, 1fr) 20px minmax(0, 1fr); align-items: center; gap: 12px; }
+.ai-paths > .app-icon { color: #a68bcf; margin-top: 16px; }
+.ai-paths .label { font-size: 10px; color: #8d9db8; }
+.ai-paths .field { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; background: #0a111d; }
+.ai-reason { margin: 10px 0 0; color: #98a7be; font-size: 10px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ai-unmatched { margin-top: 15px; border: 1px solid #303b50; border-radius: 6px; background: #101824; }
+.ai-unmatched summary { padding: 12px; color: #afbdd1; font-size: 11px; cursor: pointer; }
+.ai-unmatched summary > span { margin-left: 6px; color: #b59bde; }
+.ai-unmatched-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; padding: 0 13px 14px; }
+.ai-unmatched-grid h5 { margin: 0 0 10px; color: #a7b6ce; font-size: 10px; font-weight: 500; }
+.ai-unmatched-grid > div > div { margin-top: 9px; padding-top: 9px; border-top: 1px solid #253044; }
+.ai-unmatched-grid code { color: #c2b0e5; font-size: 10px; overflow-wrap: anywhere; }
+.ai-unmatched-grid p { margin: 4px 0 0; color: #8e9eb8; font-size: 10px; line-height: 1.8; }
+.ai-result-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 13px; margin-top: 17px; padding-top: 14px; border-top: 1px solid #2e354b; }
+.ai-result-footer p { max-width: 450px; margin: 0; color: #8f9db7; font-size: 10px; line-height: 1.8; }
+.schema-target { padding: 14px; border: 1px solid #6ec8b333; border-radius: 7px; background: #6ec8b304; }
+.schema-target > label:first-child { display: flex; align-items: center; gap: 8px; color: #a8c9c2; font-size: 11px; }
+.schema-target > p { margin: 8px 0 12px; color: #8d9db3; font-size: 10px; line-height: 1.8; }
+.schema-target .field.font-mono { min-height: 150px; }
+@media (max-width: 650px) {
+  .ai-heading, .ai-results { padding: 14px; }
+  .ai-heading > div { min-width: 180px; }
+  .ai-heading > button { width: 100%; }
+  .ai-paths { grid-template-columns: minmax(0, 1fr); gap: 9px; }
+  .ai-paths > .app-icon { display: none; }
+  .ai-unmatched-grid { grid-template-columns: minmax(0, 1fr); }
+  .ai-suggestion { padding: 12px; }
+  .ai-result-footer > button { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .ai-spinner { animation: none; } }

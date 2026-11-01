@@ -14,7 +14,7 @@ const variantClasses: Record<NonNullable<BadgeProps['variant']>, string> = {
 
 export function Badge({ variant = 'default', children }: PropsWithChildren<BadgeProps>) {
   return (
-    <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${variantClasses[variant]}`}>
+    <span className={`app-badge inline-flex items-center whitespace-nowrap ${variantClasses[variant]}`}>
       {children}
     </span>
   )

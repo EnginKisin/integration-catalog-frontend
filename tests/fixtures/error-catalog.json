@@ -1,0 +1,6439 @@
+{
+  "schemaVersion": 1,
+  "messageLanguage": "en",
+  "notes": [
+    "Endpoint patterns describe families; | separates allowed methods and * matches routes.",
+    "A violation code is nested in violations; the envelope code is VALIDATION_FAILED or INTEGRATION_INCOMPLETE.",
+    "Job failures and capability availability are successful HTTP 200 representations, not HTTP errors.",
+    "Retry-After is a positive integer in seconds; AI queue delay is advisory.",
+    "All application error bodies carry requestId; successful job/capability representations carry X-Request-ID in the header."
+  ],
+  "codes": [
+    {
+      "code": "SESSION_INVALID",
+      "message": "Session is no longer valid; sign in again",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            401
+          ],
+          "endpoints": [
+            "* /api/v1/**",
+            "GET /swagger-ui/**",
+            "GET /v3/api-docs/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 401,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 401,
+            "error": "Unauthorized",
+            "code": "SESSION_INVALID",
+            "message": "Session is no longer valid; sign in again",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "AUTH_REQUIRED",
+      "message": "Authentication is required",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            401
+          ],
+          "endpoints": [
+            "* /api/v1/**",
+            "GET /swagger-ui/**",
+            "GET /v3/api-docs/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 401,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 401,
+            "error": "Unauthorized",
+            "code": "AUTH_REQUIRED",
+            "message": "Authentication is required",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_CREDENTIALS",
+      "message": "Invalid username or password",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            401
+          ],
+          "endpoints": [
+            "POST /api/v1/auth/login"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 401,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 401,
+            "error": "Unauthorized",
+            "code": "INVALID_CREDENTIALS",
+            "message": "Invalid username or password",
+            "path": "/api/v1/auth/login",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "ACCESS_DENIED",
+      "message": "Access denied",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            403
+          ],
+          "endpoints": [
+            "* /api/v1/**",
+            "GET /swagger-ui/**",
+            "GET /v3/api-docs/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 403,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 403,
+            "error": "Forbidden",
+            "code": "ACCESS_DENIED",
+            "message": "Access denied",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "CSRF_MISSING",
+      "message": "CSRF token is missing",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            403
+          ],
+          "endpoints": [
+            "POST|PUT|PATCH|DELETE /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 403,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 403,
+            "error": "Forbidden",
+            "code": "CSRF_MISSING",
+            "message": "CSRF token is missing",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "CSRF_INVALID",
+      "message": "CSRF token is invalid",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            403
+          ],
+          "endpoints": [
+            "POST|PUT|PATCH|DELETE /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 403,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 403,
+            "error": "Forbidden",
+            "code": "CSRF_INVALID",
+            "message": "CSRF token is invalid",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "ACCOUNT_VERIFICATION_UNAVAILABLE",
+      "message": "Account verification unavailable",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            503
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 503,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 503,
+            "error": "Service Unavailable",
+            "code": "ACCOUNT_VERIFICATION_UNAVAILABLE",
+            "message": "Account verification unavailable",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "RATE_LIMITED",
+      "message": "Too many requests; try again later",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            429
+          ],
+          "endpoints": [
+            "POST /api/v1/auth/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 429,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "Retry-After": "60"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 429,
+            "error": "Too Many Requests",
+            "code": "RATE_LIMITED",
+            "message": "Too many requests; try again later",
+            "path": "/api/v1/auth/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "VALIDATION_FAILED",
+      "message": "Request validation failed",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "VALIDATION_FAILED",
+            "message": "Request validation failed",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_REQUEST_BODY",
+      "message": "Invalid request body",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "INVALID_REQUEST_BODY",
+            "message": "Invalid request body",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "A request parameter has an invalid value",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "INVALID_PARAMETER",
+            "message": "A request parameter has an invalid value",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "id",
+                "code": "INVALID_VALUE",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "MISSING_REQUEST_HEADER",
+      "message": "A required request header is missing",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "MISSING_REQUEST_HEADER",
+            "message": "A required request header is missing",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {
+              "header": "Idempotency-Key"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "code": "MISSING_REQUEST_PARAMETER",
+      "message": "A required request parameter is missing",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "MISSING_REQUEST_PARAMETER",
+            "message": "A required request parameter is missing",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {
+              "parameter": "requiredParameter"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "code": "MISSING_UPLOAD_PART",
+      "message": "A required upload part is missing",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "MISSING_UPLOAD_PART",
+            "message": "A required upload part is missing",
+            "path": "/api/v1/integrations/1/mappings/schemas/upload",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {
+              "part": "file"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "code": "METHOD_NOT_ALLOWED",
+      "message": "HTTP method is not supported for this endpoint",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            405
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 405,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 405,
+            "error": "Method Not Allowed",
+            "code": "METHOD_NOT_ALLOWED",
+            "message": "HTTP method is not supported for this endpoint",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "UNSUPPORTED_MEDIA_TYPE",
+      "message": "Request content type is not supported",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            415
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 415,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 415,
+            "error": "Unsupported Media Type",
+            "code": "UNSUPPORTED_MEDIA_TYPE",
+            "message": "Request content type is not supported",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "NOT_ACCEPTABLE",
+      "message": "The requested response content type is not available",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            406
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 406,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 406,
+            "error": "Not Acceptable",
+            "code": "NOT_ACCEPTABLE",
+            "message": "The requested response content type is not available",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "RESOURCE_NOT_FOUND",
+      "message": "Requested resource was not found",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            404
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 404,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 404,
+            "error": "Not Found",
+            "code": "RESOURCE_NOT_FOUND",
+            "message": "Requested resource was not found",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INTEGRATION_NOT_FOUND",
+      "message": "Integration was not found",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            404
+          ],
+          "endpoints": [
+            "* /api/v1/integrations/{id}",
+            "* /api/v1/integrations/{id}/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 404,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 404,
+            "error": "Not Found",
+            "code": "INTEGRATION_NOT_FOUND",
+            "message": "Integration was not found",
+            "path": "/api/v1/integrations/1",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "SYSTEM_NOT_FOUND",
+      "message": "System was not found",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            404
+          ],
+          "endpoints": [
+            "GET|PUT|DELETE /api/v1/systems/{id}",
+            "PATCH /api/v1/systems/{id}/active",
+            "POST /api/v1/integrations",
+            "PUT /api/v1/integrations/{id}"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 404,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 404,
+            "error": "Not Found",
+            "code": "SYSTEM_NOT_FOUND",
+            "message": "System was not found",
+            "path": "/api/v1/systems/1",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "SCHEMA_NOT_FOUND",
+      "message": "Schema was not found in this integration",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            404
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/schemas/{schemaId}/sample",
+            "POST /api/v1/integrations/{id}/mappings/fields",
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 404,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 404,
+            "error": "Not Found",
+            "code": "SCHEMA_NOT_FOUND",
+            "message": "Schema was not found in this integration",
+            "path": "/api/v1/integrations/1/mappings/schemas/1/sample",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_JOB_NOT_FOUND",
+      "message": "AI job was not found in this integration",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            404
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}",
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}/result",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 404,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 404,
+            "error": "Not Found",
+            "code": "AI_JOB_NOT_FOUND",
+            "message": "AI job was not found in this integration",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs/example-job-id",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "SAMPLE_FILE_NOT_FOUND",
+      "message": "Sample file was not found",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            404
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/schemas/{schemaId}/sample"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 404,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 404,
+            "error": "Not Found",
+            "code": "SAMPLE_FILE_NOT_FOUND",
+            "message": "Sample file was not found",
+            "path": "/api/v1/integrations/1/mappings/schemas/1/sample",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "ACCOUNT_NOT_FOUND",
+      "message": "Account was not found",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            404
+          ],
+          "endpoints": [
+            "GET /api/v1/auth/me",
+            "POST /api/v1/auth/password/change",
+            "POST /api/v1/auth/email/change",
+            "POST|PUT /api/v1/users/{id}/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 404,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 404,
+            "error": "Not Found",
+            "code": "ACCOUNT_NOT_FOUND",
+            "message": "Account was not found",
+            "path": "/api/v1/auth/me",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "CONFIG_NOT_FOUND",
+      "message": "Environment configuration was not found",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            404
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/configs/{environment}/{target}/credentials"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 404,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 404,
+            "error": "Not Found",
+            "code": "CONFIG_NOT_FOUND",
+            "message": "Environment configuration was not found",
+            "path": "/api/v1/integrations/1/configs/{environment}/{target}/credentials",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "CONCURRENT_MODIFICATION",
+      "message": "The record changed; reload and try again",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "CONCURRENT_MODIFICATION",
+            "message": "The record changed; reload and try again",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "DATA_CONFLICT",
+      "message": "Data conflicts with an existing record",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "DATA_CONFLICT",
+            "message": "Data conflicts with an existing record",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INTERNAL_ERROR",
+      "message": "An unexpected error occurred",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            500
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 500,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 500,
+            "error": "Internal Server Error",
+            "code": "INTERNAL_ERROR",
+            "message": "An unexpected error occurred",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "SERVICE_UNAVAILABLE",
+      "message": "Service is temporarily unavailable",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            503
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 503,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 503,
+            "error": "Service Unavailable",
+            "code": "SERVICE_UNAVAILABLE",
+            "message": "Service is temporarily unavailable",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "BAD_REQUEST",
+      "message": "Request could not be processed",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "BAD_REQUEST",
+            "message": "Request could not be processed",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "CONFLICT",
+      "message": "Request conflicts with the current state",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "CONFLICT",
+            "message": "Request conflicts with the current state",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "USERNAME_TAKEN",
+      "message": "Username already exists",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "POST /api/v1/users"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "USERNAME_TAKEN",
+            "message": "Username already exists",
+            "path": "/api/v1/users",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "username",
+                "code": "USERNAME_TAKEN",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVITATION_NOT_PENDING",
+      "message": "Account is not awaiting invitation acceptance",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "POST /api/v1/users/{id}/invitations/resend"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INVITATION_NOT_PENDING",
+            "message": "Account is not awaiting invitation acceptance",
+            "path": "/api/v1/users/1/invitations/resend",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVITATION_RATE_LIMITED",
+      "message": "Wait before sending another invitation",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            429
+          ],
+          "endpoints": [
+            "POST /api/v1/users/{id}/invitations/resend"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 429,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "Retry-After": "60"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 429,
+            "error": "Too Many Requests",
+            "code": "INVITATION_RATE_LIMITED",
+            "message": "Wait before sending another invitation",
+            "path": "/api/v1/users/1/invitations/resend",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "ACCOUNT_EMAIL_REQUIRED",
+      "message": "Account requires an active verified email",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "POST /api/v1/users/{id}/password-reset"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "ACCOUNT_EMAIL_REQUIRED",
+            "message": "Account requires an active verified email",
+            "path": "/api/v1/users/1/password-reset",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "LAST_ADMIN_RESET_RESTRICTED",
+      "message": "The last active administrator must use self-service password recovery",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "POST /api/v1/users/{id}/password-reset"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "LAST_ADMIN_RESET_RESTRICTED",
+            "message": "The last active administrator must use self-service password recovery",
+            "path": "/api/v1/users/1/password-reset",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "PASSWORD_RESET_RATE_LIMITED",
+      "message": "Wait before requesting another password reset",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            429
+          ],
+          "endpoints": [
+            "POST /api/v1/users/{id}/password-reset"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 429,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "Retry-After": "60"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 429,
+            "error": "Too Many Requests",
+            "code": "PASSWORD_RESET_RATE_LIMITED",
+            "message": "Wait before requesting another password reset",
+            "path": "/api/v1/users/1/password-reset",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "EMAIL_UNAVAILABLE",
+      "message": "Email cannot be used",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "POST /api/v1/users",
+            "POST /api/v1/auth/email/change"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "EMAIL_UNAVAILABLE",
+            "message": "Email cannot be used",
+            "path": "/api/v1/users",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "email",
+                "code": "EMAIL_UNAVAILABLE",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "EMAIL_CHANGE_RATE_LIMITED",
+      "message": "Wait before requesting another email change",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            429
+          ],
+          "endpoints": [
+            "POST /api/v1/auth/email/change"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 429,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "Retry-After": "60"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 429,
+            "error": "Too Many Requests",
+            "code": "EMAIL_CHANGE_RATE_LIMITED",
+            "message": "Wait before requesting another email change",
+            "path": "/api/v1/auth/email/change",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "LAST_ADMIN_REQUIRED",
+      "message": "The last active administrator must be retained",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PUT /api/v1/users/{id}/role",
+            "PUT /api/v1/users/{id}/active"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "LAST_ADMIN_REQUIRED",
+            "message": "The last active administrator must be retained",
+            "path": "/api/v1/users/1/role",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "EMAIL_VERIFICATION_REQUIRED",
+      "message": "Email verification is required before activation",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PUT /api/v1/users/{id}/active"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "EMAIL_VERIFICATION_REQUIRED",
+            "message": "Email verification is required before activation",
+            "path": "/api/v1/users/1/active",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "ACCOUNT_UNAVAILABLE",
+      "message": "Account is unavailable",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            403
+          ],
+          "endpoints": [
+            "POST /api/v1/auth/password/change",
+            "POST /api/v1/auth/email/change"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 403,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 403,
+            "error": "Forbidden",
+            "code": "ACCOUNT_UNAVAILABLE",
+            "message": "Account is unavailable",
+            "path": "/api/v1/auth/password/change",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "CURRENT_PASSWORD_INVALID",
+      "message": "Current password is incorrect",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/auth/password/change",
+            "POST /api/v1/auth/email/change"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "CURRENT_PASSWORD_INVALID",
+            "message": "Current password is incorrect",
+            "path": "/api/v1/auth/password/change",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "currentPassword",
+                "code": "CURRENT_PASSWORD_INVALID",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "PASSWORD_REUSE",
+      "message": "Choose a different password",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/auth/password/change",
+            "POST /api/v1/auth/password-reset/confirm"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "PASSWORD_REUSE",
+            "message": "Choose a different password",
+            "path": "/api/v1/auth/password/change",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "newPassword",
+                "code": "PASSWORD_REUSE",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "ACCOUNT_LINK_INVALID",
+      "message": "Account link is invalid or expired",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/auth/invitations/accept",
+            "POST /api/v1/auth/password-reset/confirm",
+            "POST /api/v1/auth/email/confirm"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "ACCOUNT_LINK_INVALID",
+            "message": "Account link is invalid or expired",
+            "path": "/api/v1/auth/invitations/accept",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "CREDENTIAL_PERMISSION_REQUIRED",
+      "message": "Credential permission is required",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            403
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/configs",
+            "GET /api/v1/integrations/{id}/configs/{environment}/{target}/credentials"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 403,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 403,
+            "error": "Forbidden",
+            "code": "CREDENTIAL_PERMISSION_REQUIRED",
+            "message": "Credential permission is required",
+            "path": "/api/v1/integrations/1/configs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "SYSTEM_IN_USE",
+      "message": "System is used by integrations; deactivate it instead",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "DELETE /api/v1/systems/{id}"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "SYSTEM_IN_USE",
+            "message": "System is used by integrations; deactivate it instead",
+            "path": "/api/v1/systems/1",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {
+              "usageCount": 5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "code": "INACTIVE_SYSTEM_SELECTION",
+      "message": "Inactive systems cannot be selected",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations",
+            "PUT /api/v1/integrations/{id}"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INACTIVE_SYSTEM_SELECTION",
+            "message": "Inactive systems cannot be selected",
+            "path": "/api/v1/integrations",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "DUPLICATE_ENVIRONMENT_CONFIG",
+      "message": "Environment configuration is duplicated",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/configs"
+          ]
+        },
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "DUPLICATE_ENVIRONMENT_CONFIG",
+            "message": "Environment configuration is duplicated",
+            "path": "/api/v1/integrations/1/configs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Environment configuration is duplicated"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "DUPLICATE_ENVIRONMENT_CONFIG",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "CREDENTIALS_EMPTY",
+      "message": "Credentials must not be empty",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/configs"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "CREDENTIALS_EMPTY",
+            "message": "Credentials must not be empty",
+            "path": "/api/v1/integrations/1/configs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "CREDENTIALS_REQUIRED",
+      "message": "Credentials are required for this authentication type",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/configs"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "CREDENTIALS_REQUIRED",
+            "message": "Credentials are required for this authentication type",
+            "path": "/api/v1/integrations/1/configs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INTEGRATION_INCOMPLETE",
+      "message": "Integration is not ready for completion",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "REVIEW_REQUIRED",
+      "message": "Review preserved settings and confirm the review before completing",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Review preserved settings and confirm the review before completing"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "REVIEW_REQUIRED",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "BASIC_INFORMATION_REQUIRED",
+      "message": "Basic integration information is incomplete",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Basic integration information is incomplete"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "BASIC_INFORMATION_REQUIRED",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_MIDDLEWARE_SELECTION",
+      "message": "Middleware selection is inconsistent",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        },
+        {
+          "type": "violation",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Middleware selection is inconsistent"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "INVALID_MIDDLEWARE_SELECTION",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        },
+        {
+          "type": "violation",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "VALIDATION_FAILED",
+            "message": "Request validation failed",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "middlewareSystemId",
+                "code": "INVALID_MIDDLEWARE_SELECTION",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "DUPLICATE_SCHEMA_TYPE",
+      "message": "Schema type is duplicated",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Schema type is duplicated"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "DUPLICATE_SCHEMA_TYPE",
+                "params": {
+                  "schemaType": "SOURCE_TO_DEST_REQUEST"
+                }
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "REQUIRED_SCHEMA_MISSING",
+      "message": "A required schema is missing",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "A required schema is missing"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "REQUIRED_SCHEMA_MISSING",
+                "params": {
+                  "schemaType": "SOURCE_TO_DEST_REQUEST"
+                }
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_MAPPING_CONNECTION",
+      "message": "Field mapping has an invalid schema connection or an empty field path",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Field mapping has an invalid schema connection or an empty field path"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "INVALID_MAPPING_CONNECTION",
+                "params": {
+                  "mappingId": 1
+                }
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "ENVIRONMENT_CONFIG_REQUIRED",
+      "message": "At least one environment configuration is required",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "At least one environment configuration is required"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "ENVIRONMENT_CONFIG_REQUIRED",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_ENVIRONMENT_CONFIG",
+      "message": "Environment configuration is invalid",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Environment configuration is invalid"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "INVALID_ENVIRONMENT_CONFIG",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "MIDDLEWARE_CONFIG_NOT_ALLOWED",
+      "message": "Middleware configuration is incompatible with the integration flow",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Middleware configuration is incompatible with the integration flow"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "MIDDLEWARE_CONFIG_NOT_ALLOWED",
+                "params": {
+                  "environment": "DEV"
+                }
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "DESTINATION_CONFIG_REQUIRED",
+      "message": "Destination configuration is required for this environment",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Destination configuration is required for this environment"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "DESTINATION_CONFIG_REQUIRED",
+                "params": {
+                  "environment": "DEV"
+                }
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "MIDDLEWARE_CONFIG_REQUIRED",
+      "message": "Middleware configuration is required for this environment",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Middleware configuration is required for this environment"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "MIDDLEWARE_CONFIG_REQUIRED",
+                "params": {
+                  "environment": "DEV"
+                }
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "REQUIRED",
+      "message": "A value is required",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "VALIDATION_FAILED",
+            "message": "Request validation failed",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "email",
+                "code": "REQUIRED",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_EMAIL",
+      "message": "Email address is invalid",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "VALIDATION_FAILED",
+            "message": "Request validation failed",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "email",
+                "code": "INVALID_EMAIL",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_LENGTH",
+      "message": "Length is outside the allowed range",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "VALIDATION_FAILED",
+            "message": "Request validation failed",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "newPassword",
+                "code": "INVALID_LENGTH",
+                "params": {
+                  "min": 12,
+                  "max": 128
+                }
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_FORMAT",
+      "message": "Value has an invalid format",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "VALIDATION_FAILED",
+            "message": "Request validation failed",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "username",
+                "code": "INVALID_FORMAT",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_VALUE",
+      "message": "Value is invalid",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "VALIDATION_FAILED",
+            "message": "Request validation failed",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "confirmed",
+                "code": "INVALID_VALUE",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "MIN_VALUE",
+      "message": "Value is below the minimum",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "VALIDATION_FAILED",
+            "message": "Request validation failed",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "page",
+                "code": "MIN_VALUE",
+                "params": {
+                  "min": 0
+                }
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "MAX_VALUE",
+      "message": "Value exceeds the maximum",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "VALIDATION_FAILED",
+            "message": "Request validation failed",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "size",
+                "code": "MAX_VALUE",
+                "params": {
+                  "max": 100
+                }
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "POSITIVE_REQUIRED",
+      "message": "Value must be greater than zero",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "VALIDATION_FAILED",
+            "message": "Request validation failed",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "[0].timeoutMs",
+                "code": "POSITIVE_REQUIRED",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "NON_NEGATIVE_REQUIRED",
+      "message": "Value must be zero or greater",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "* /api/v1/**"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "VALIDATION_FAILED",
+            "message": "Request validation failed",
+            "path": "/api/v1/example",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [
+              {
+                "field": "[0].retryCount",
+                "code": "NON_NEGATIVE_REQUIRED",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_SCHEMA_TYPE",
+      "message": "Schema type is incompatible with the integration flow",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        },
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "INVALID_SCHEMA_TYPE",
+            "message": "Schema type is incompatible with the integration flow",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "INVALID_SCHEMA_TYPE",
+            "message": "Schema type is incompatible with the integration flow",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Schema type is incompatible with the integration flow"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "INVALID_SCHEMA_TYPE",
+                "params": {
+                  "schemaType": "SOURCE_TO_DEST_REQUEST"
+                }
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "FORMAT_MISMATCH",
+      "message": "Payload format does not match the integration flow",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        },
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "FORMAT_MISMATCH",
+            "message": "Payload format does not match the integration flow",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "FORMAT_MISMATCH",
+            "message": "Payload format does not match the integration flow",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Payload format does not match the integration flow"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "FORMAT_MISMATCH",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "FORMAT_REQUIRED",
+      "message": "Payload format is required",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "FORMAT_REQUIRED",
+            "message": "Payload format is required",
+            "path": "/api/v1/integrations/1/mappings/schemas/upload",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_CONTENT",
+      "message": "Content is incompatible with the selected format or flow",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        },
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "INVALID_CONTENT",
+            "message": "Content is incompatible with the selected format or flow",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "INVALID_CONTENT",
+            "message": "Content is incompatible with the selected format or flow",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Content is incompatible with the selected format or flow"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "INVALID_CONTENT",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_FILE",
+      "message": "Uploaded file could not be read",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "INVALID_FILE",
+            "message": "Uploaded file could not be read",
+            "path": "/api/v1/integrations/1/mappings/schemas/upload",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_JSON",
+      "message": "JSON content must be a valid object",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "INVALID_JSON",
+            "message": "JSON content must be a valid object",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "FILE_REQUIRED",
+      "message": "A sample file is required",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "A sample file is required"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "FILE_REQUIRED",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "FILE_REQUIRED",
+            "message": "A sample file is required",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "MAPPING_NOT_SUPPORTED",
+      "message": "Selected format does not support field mapping",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/fields"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Selected format does not support field mapping"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "MAPPING_NOT_SUPPORTED",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "MAPPING_NOT_SUPPORTED",
+            "message": "Selected format does not support field mapping",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "MAPPING_NOT_SUPPORTED",
+            "message": "Selected format does not support field mapping",
+            "path": "/api/v1/integrations/1/mappings/fields",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "SAMPLE_REQUIRED",
+      "message": "An independent definition or sample is required",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload",
+            "POST /api/v1/integrations/{id}/mappings/fields",
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "An independent definition or sample is required"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "SAMPLE_REQUIRED",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "SAMPLE_REQUIRED",
+            "message": "An independent definition or sample is required",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_SCHEMA",
+      "message": "Stored schema does not match its content",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        },
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "INVALID_SCHEMA",
+            "message": "Stored schema does not match its content",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Stored schema does not match its content"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "INVALID_SCHEMA",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "EMPTY_SCHEMA",
+      "message": "Schema definition must not be empty",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Schema definition must not be empty"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "EMPTY_SCHEMA",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "FIELD_PATH_NOT_FOUND",
+      "message": "Field path does not exist in the selected schema",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/fields"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Field path does not exist in the selected schema"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "FIELD_PATH_NOT_FOUND",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "FIELD_PATH_NOT_FOUND",
+            "message": "Field path does not exist in the selected schema",
+            "path": "/api/v1/integrations/1/mappings/fields",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "FIELD_PATH_NOT_FOUND",
+            "message": "Field path does not exist in the selected schema",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_ENCODING",
+      "message": "Only UTF-8 text is supported",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        },
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "INVALID_ENCODING",
+            "message": "Only UTF-8 text is supported",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "INVALID_ENCODING",
+            "message": "Only UTF-8 text is supported",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Only UTF-8 text is supported"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "INVALID_ENCODING",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_XML",
+      "message": "XML content is malformed or unsupported",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        },
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "INVALID_XML",
+            "message": "XML content is malformed or unsupported",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "INVALID_XML",
+            "message": "XML content is malformed or unsupported",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "XML content is malformed or unsupported"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "INVALID_XML",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "XML_COMPLEXITY_LIMIT",
+      "message": "XML exceeds supported depth, field count or path length",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        },
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "XML_COMPLEXITY_LIMIT",
+            "message": "XML exceeds supported depth, field count or path length",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "XML_COMPLEXITY_LIMIT",
+            "message": "XML exceeds supported depth, field count or path length",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "XML exceeds supported depth, field count or path length"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "XML_COMPLEXITY_LIMIT",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_IDOC",
+      "message": "IDOC XML must contain an IDOC element",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        },
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "INVALID_IDOC",
+            "message": "IDOC XML must contain an IDOC element",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "INVALID_IDOC",
+            "message": "IDOC XML must contain an IDOC element",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "IDOC XML must contain an IDOC element"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "INVALID_IDOC",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_CSV_OPTIONS",
+      "message": "CSV options are invalid",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "CSV options are invalid"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "INVALID_CSV_OPTIONS",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "INVALID_CSV_OPTIONS",
+            "message": "CSV options are invalid",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_CSV",
+      "message": "CSV content is malformed or inconsistent",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "CSV content is malformed or inconsistent"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "INVALID_CSV",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "INVALID_CSV",
+            "message": "CSV content is malformed or inconsistent",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_EXCEL",
+      "message": "A readable, unencrypted workbook matching its extension is required",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "A readable, unencrypted workbook matching its extension is required"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "INVALID_EXCEL",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "INVALID_EXCEL",
+            "message": "A readable, unencrypted workbook matching its extension is required",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "EMPTY_CONTENT",
+      "message": "Content must not be empty",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        },
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "EMPTY_CONTENT",
+            "message": "Content must not be empty",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "EMPTY_CONTENT",
+            "message": "Content must not be empty",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Content must not be empty"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "EMPTY_CONTENT",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "PAYLOAD_TOO_LARGE",
+      "message": "Content exceeds the allowed size",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            413
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Content exceeds the allowed size"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "PAYLOAD_TOO_LARGE",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 413,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 413,
+            "error": "Payload Too Large",
+            "code": "PAYLOAD_TOO_LARGE",
+            "message": "Content exceeds the allowed size",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {
+              "maxBytes": 1048576
+            }
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "PAYLOAD_TOO_LARGE",
+            "message": "Content exceeds the allowed size",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_FILE_NAME",
+      "message": "File name is invalid",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "INVALID_FILE_NAME",
+            "message": "File name is invalid",
+            "path": "/api/v1/integrations/1/mappings/schemas/upload",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "UNSUPPORTED_FILE_EXTENSION",
+      "message": "File extension does not match the selected format",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "UNSUPPORTED_FILE_EXTENSION",
+            "message": "File extension does not match the selected format",
+            "path": "/api/v1/integrations/1/mappings/schemas/upload",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_JSON_SCHEMA",
+      "message": "JSON schema properties must have object definitions",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload",
+            "POST /api/v1/integrations/{id}/mappings/fields",
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "JSON schema properties must have object definitions"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "INVALID_JSON_SCHEMA",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "INVALID_JSON_SCHEMA",
+            "message": "JSON schema properties must have object definitions",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INPUT_TOO_COMPLEX",
+      "message": "Input exceeds supported nesting or path length",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload",
+            "POST /api/v1/integrations/{id}/mappings/fields",
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Input exceeds supported nesting or path length"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "INPUT_TOO_COMPLEX",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "INPUT_TOO_COMPLEX",
+            "message": "Input exceeds supported nesting or path length",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "TOO_MANY_FIELDS",
+      "message": "Input exceeds the allowed field count",
+      "occurrences": [
+        {
+          "type": "violation",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "PATCH /api/v1/integrations/{id}/complete"
+          ]
+        },
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload",
+            "POST /api/v1/integrations/{id}/mappings/fields",
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "violation",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "INTEGRATION_INCOMPLETE",
+            "message": "Integration is not ready for completion",
+            "path": "/api/v1/integrations/1/complete",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [
+              "Input exceeds the allowed field count"
+            ],
+            "violations": [
+              {
+                "field": null,
+                "code": "TOO_MANY_FIELDS",
+                "params": {}
+              }
+            ],
+            "params": {}
+          }
+        },
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "TOO_MANY_FIELDS",
+            "message": "Input exceeds the allowed field count",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {
+              "maxFields": 100
+            }
+          }
+        }
+      ]
+    },
+    {
+      "code": "SCHEMA_MAPPING_CONFLICT",
+      "message": "Schema change would invalidate existing mappings",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/schemas",
+            "POST /api/v1/integrations/{id}/mappings/schemas/upload"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "SCHEMA_MAPPING_CONFLICT",
+            "message": "Schema change would invalidate existing mappings",
+            "path": "/api/v1/integrations/1/mappings/schemas",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_IDEMPOTENCY_KEY",
+      "message": "A valid Idempotency-Key header is required",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            400
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 400,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 400,
+            "error": "Bad Request",
+            "code": "INVALID_IDEMPOTENCY_KEY",
+            "message": "A valid Idempotency-Key header is required",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_SCHEMA_PAIR",
+      "message": "Schema pair is incompatible with the integration flow",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "INVALID_SCHEMA_PAIR",
+            "message": "Schema pair is incompatible with the integration flow",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_INPUT_TOO_LARGE",
+      "message": "AI input exceeds the allowed size",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            413
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 413,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 413,
+            "error": "Payload Too Large",
+            "code": "AI_INPUT_TOO_LARGE",
+            "message": "AI input exceeds the allowed size",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_CONTEXT_LIMIT",
+      "message": "AI input exceeds the context budget",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            413
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 413,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 413,
+            "error": "Payload Too Large",
+            "code": "AI_CONTEXT_LIMIT",
+            "message": "AI input exceeds the context budget",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_QUEUE_FULL",
+      "message": "AI queue is full; try again later",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            429
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 429,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "Retry-After": "5"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 429,
+            "error": "Too Many Requests",
+            "code": "AI_QUEUE_FULL",
+            "message": "AI queue is full; try again later",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "CONTEXT_CHANGED",
+      "message": "Schemas or mappings changed; reload the mapping context",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "CONTEXT_CHANGED",
+            "message": "Schemas or mappings changed; reload the mapping context",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "MAPPING_CONFLICT",
+      "message": "A target field already has a mapping",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "MAPPING_CONFLICT",
+            "message": "A target field already has a mapping",
+            "path": "/api/v1/integrations/1/mappings/fields/append",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "INVALID_SUGGESTION",
+      "message": "Suggestion is invalid for this job or schema pair",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "INVALID_SUGGESTION",
+            "message": "Suggestion is invalid for this job or schema pair",
+            "path": "/api/v1/integrations/1/mappings/fields/append",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_DISABLED",
+      "message": "AI suggestions are disabled; manual mapping is available",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            503
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs"
+          ]
+        },
+        {
+          "type": "capability",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/capabilities"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 503,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 503,
+            "error": "Service Unavailable",
+            "code": "AI_DISABLED",
+            "message": "AI suggestions are disabled; manual mapping is available",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "capability",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "enabled": false,
+            "available": false,
+            "provider": "ollama",
+            "model": "configured-model",
+            "supportedFormats": [
+              "JSON",
+              "XML",
+              "IDOC"
+            ],
+            "maxFieldsPerSide": 100,
+            "code": "AI_DISABLED"
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_PROVIDER_NOT_SUPPORTED",
+      "message": "Configured AI provider is not supported",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            503
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs"
+          ]
+        },
+        {
+          "type": "capability",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/capabilities"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 503,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 503,
+            "error": "Service Unavailable",
+            "code": "AI_PROVIDER_NOT_SUPPORTED",
+            "message": "Configured AI provider is not supported",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "capability",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "enabled": true,
+            "available": false,
+            "provider": "unsupported",
+            "model": "configured-model",
+            "supportedFormats": [
+              "JSON",
+              "XML",
+              "IDOC"
+            ],
+            "maxFieldsPerSide": 100,
+            "code": "AI_PROVIDER_NOT_SUPPORTED"
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_FORMAT_NOT_SUPPORTED",
+      "message": "AI mapping supports JSON, XML and IDOC",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            422
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 422,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "code": "AI_FORMAT_NOT_SUPPORTED",
+            "message": "AI mapping supports JSON, XML and IDOC",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_RESULT_EXPIRED",
+      "message": "AI result expired; request new suggestions",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            410
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}/result",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        },
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "EXPIRED"
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 410,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 410,
+            "error": "Gone",
+            "code": "AI_RESULT_EXPIRED",
+            "message": "AI result expired; request new suggestions",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs/example-job-id/result",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "EXPIRED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_RESULT_EXPIRED",
+            "message": "AI result expired; request new suggestions",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_RESULT_NOT_READY",
+      "message": "AI result is not available; inspect the job status",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}/result",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "AI_RESULT_NOT_READY",
+            "message": "AI result is not available; inspect the job status",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs/example-job-id/result",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "IDEMPOTENCY_CONFLICT",
+      "message": "Idempotency key was used for a different request",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            409
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs",
+            "POST /api/v1/integrations/{id}/mappings/fields/append"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 409,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 409,
+            "error": "Conflict",
+            "code": "IDEMPOTENCY_CONFLICT",
+            "message": "Idempotency key was used for a different request",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_API_KEY_MISSING",
+      "message": "AI provider API key is not configured",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            503
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs"
+          ]
+        },
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        },
+        {
+          "type": "capability",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/capabilities"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 503,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 503,
+            "error": "Service Unavailable",
+            "code": "AI_API_KEY_MISSING",
+            "message": "AI provider API key is not configured",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_API_KEY_MISSING",
+            "message": "AI provider API key is not configured",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        },
+        {
+          "type": "capability",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "enabled": true,
+            "available": false,
+            "provider": "gemini",
+            "model": "configured-model",
+            "supportedFormats": [
+              "JSON",
+              "XML",
+              "IDOC"
+            ],
+            "maxFieldsPerSide": 100,
+            "code": "AI_API_KEY_MISSING"
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_CONFIGURATION_INVALID",
+      "message": "AI provider configuration is invalid",
+      "occurrences": [
+        {
+          "type": "http",
+          "httpStatuses": [
+            503
+          ],
+          "endpoints": [
+            "POST /api/v1/integrations/{id}/mappings/ai/jobs"
+          ]
+        },
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        },
+        {
+          "type": "capability",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/capabilities"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "httpStatus": 503,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "timestamp": "2026-10-31T18:00:00Z",
+            "status": 503,
+            "error": "Service Unavailable",
+            "code": "AI_CONFIGURATION_INVALID",
+            "message": "AI provider configuration is invalid",
+            "path": "/api/v1/integrations/1/mappings/ai/jobs",
+            "requestId": "8e602015-ea22-4a62-bc33-cda40345b09d",
+            "details": [],
+            "violations": [],
+            "params": {}
+          }
+        },
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_CONFIGURATION_INVALID",
+            "message": "AI provider configuration is invalid",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        },
+        {
+          "type": "capability",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "enabled": true,
+            "available": false,
+            "provider": "gemini",
+            "model": "configured-model",
+            "supportedFormats": [
+              "JSON",
+              "XML",
+              "IDOC"
+            ],
+            "maxFieldsPerSide": 100,
+            "code": "AI_CONFIGURATION_INVALID"
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_AUTHENTICATION_FAILED",
+      "message": "AI provider credentials or permissions were rejected",
+      "occurrences": [
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        },
+        {
+          "type": "capability",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/capabilities"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_AUTHENTICATION_FAILED",
+            "message": "AI provider credentials or permissions were rejected",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        },
+        {
+          "type": "capability",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "enabled": true,
+            "available": false,
+            "provider": "gemini",
+            "model": "configured-model",
+            "supportedFormats": [
+              "JSON",
+              "XML",
+              "IDOC"
+            ],
+            "maxFieldsPerSide": 100,
+            "code": "AI_AUTHENTICATION_FAILED"
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_MODEL_NOT_AVAILABLE",
+      "message": "Configured AI model is not available",
+      "occurrences": [
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        },
+        {
+          "type": "capability",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/capabilities"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_MODEL_NOT_AVAILABLE",
+            "message": "Configured AI model is not available",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        },
+        {
+          "type": "capability",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "enabled": true,
+            "available": false,
+            "provider": "gemini",
+            "model": "configured-model",
+            "supportedFormats": [
+              "JSON",
+              "XML",
+              "IDOC"
+            ],
+            "maxFieldsPerSide": 100,
+            "code": "AI_MODEL_NOT_AVAILABLE"
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_RATE_LIMITED",
+      "message": "AI provider quota or rate limit was reached",
+      "occurrences": [
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        },
+        {
+          "type": "capability",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/capabilities"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_RATE_LIMITED",
+            "message": "AI provider quota or rate limit was reached",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        },
+        {
+          "type": "capability",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "enabled": true,
+            "available": false,
+            "provider": "gemini",
+            "model": "configured-model",
+            "supportedFormats": [
+              "JSON",
+              "XML",
+              "IDOC"
+            ],
+            "maxFieldsPerSide": 100,
+            "code": "AI_RATE_LIMITED"
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_TIMEOUT",
+      "message": "AI request timed out; manual mapping is available",
+      "occurrences": [
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        },
+        {
+          "type": "capability",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/capabilities"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_TIMEOUT",
+            "message": "AI request timed out; manual mapping is available",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        },
+        {
+          "type": "capability",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "enabled": true,
+            "available": false,
+            "provider": "ollama",
+            "model": "configured-model",
+            "supportedFormats": [
+              "JSON",
+              "XML",
+              "IDOC"
+            ],
+            "maxFieldsPerSide": 100,
+            "code": "AI_TIMEOUT"
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_UNAVAILABLE",
+      "message": "AI provider is temporarily unavailable",
+      "occurrences": [
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        },
+        {
+          "type": "capability",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/capabilities"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_UNAVAILABLE",
+            "message": "AI provider is temporarily unavailable",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        },
+        {
+          "type": "capability",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "enabled": true,
+            "available": false,
+            "provider": "ollama",
+            "model": "configured-model",
+            "supportedFormats": [
+              "JSON",
+              "XML",
+              "IDOC"
+            ],
+            "maxFieldsPerSide": 100,
+            "code": "AI_UNAVAILABLE"
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_INVALID_OUTPUT",
+      "message": "AI provider returned an invalid mapping result",
+      "occurrences": [
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        },
+        {
+          "type": "capability",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/capabilities"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_INVALID_OUTPUT",
+            "message": "AI provider returned an invalid mapping result",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        },
+        {
+          "type": "capability",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "enabled": true,
+            "available": false,
+            "provider": "ollama",
+            "model": "configured-model",
+            "supportedFormats": [
+              "JSON",
+              "XML",
+              "IDOC"
+            ],
+            "maxFieldsPerSide": 100,
+            "code": "AI_INVALID_OUTPUT"
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_CONTENT_BLOCKED",
+      "message": "AI provider blocked suggestion generation for this content",
+      "occurrences": [
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        }
+      ],
+      "examples": [
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_CONTENT_BLOCKED",
+            "message": "AI provider blocked suggestion generation for this content",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_OUTPUT_TRUNCATED",
+      "message": "AI output exceeded its limit",
+      "occurrences": [
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        }
+      ],
+      "examples": [
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_OUTPUT_TRUNCATED",
+            "message": "AI output exceeded its limit",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_INTERRUPTED",
+      "message": "AI execution was interrupted",
+      "occurrences": [
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        }
+      ],
+      "examples": [
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_INTERRUPTED",
+            "message": "AI execution was interrupted",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_CONFIGURATION_CHANGED",
+      "message": "AI provider configuration changed; create a new job",
+      "occurrences": [
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        }
+      ],
+      "examples": [
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_CONFIGURATION_CHANGED",
+            "message": "AI provider configuration changed; create a new job",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_INTERNAL_ERROR",
+      "message": "AI suggestion generation failed; manual mapping is available",
+      "occurrences": [
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        }
+      ],
+      "examples": [
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_INTERNAL_ERROR",
+            "message": "AI suggestion generation failed; manual mapping is available",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_MODEL_NOT_INSTALLED",
+      "message": "Configured local AI model is not installed",
+      "occurrences": [
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        },
+        {
+          "type": "capability",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/capabilities"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_MODEL_NOT_INSTALLED",
+            "message": "Configured local AI model is not installed",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        },
+        {
+          "type": "capability",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "enabled": true,
+            "available": false,
+            "provider": "ollama",
+            "model": "configured-model",
+            "supportedFormats": [
+              "JSON",
+              "XML",
+              "IDOC"
+            ],
+            "maxFieldsPerSide": 100,
+            "code": "AI_MODEL_NOT_INSTALLED"
+          }
+        }
+      ]
+    },
+    {
+      "code": "AI_CLOUD_MODEL_FORBIDDEN",
+      "message": "Only downloaded local AI models are supported",
+      "occurrences": [
+        {
+          "type": "job",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/jobs/{jobId}"
+          ],
+          "jobStatus": "FAILED"
+        },
+        {
+          "type": "capability",
+          "httpStatuses": [
+            200
+          ],
+          "endpoints": [
+            "GET /api/v1/integrations/{id}/mappings/ai/capabilities"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "type": "job",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "jobId": "example-job-id",
+            "status": "FAILED",
+            "createdAt": "2026-10-31T18:00:00Z",
+            "expiresAt": "2026-11-01T18:00:00Z",
+            "errorCode": "AI_CLOUD_MODEL_FORBIDDEN",
+            "message": "Only downloaded local AI models are supported",
+            "resultUrl": null,
+            "pollAfterMs": null
+          }
+        },
+        {
+          "type": "capability",
+          "httpStatus": 200,
+          "headers": {
+            "X-Request-ID": "8e602015-ea22-4a62-bc33-cda40345b09d"
+          },
+          "body": {
+            "enabled": true,
+            "available": false,
+            "provider": "ollama",
+            "model": "configured-model",
+            "supportedFormats": [
+              "JSON",
+              "XML",
+              "IDOC"
+            ],
+            "maxFieldsPerSide": 100,
+            "code": "AI_CLOUD_MODEL_FORBIDDEN"
+          }
+        }
+      ]
+    }
+  ],
+  "availabilitySuccessCode": "READY",
+  "mappingDiagnosticCodes": [
+    "AMBIGUOUS",
+    "NO_COMPATIBLE_FIELD",
+    "TYPE_MISMATCH",
+    "INSUFFICIENT_CONTEXT",
+    "TRANSFORMATION_REQUIRED",
+    "NO_CONFIDENT_MATCH"
+  ]
+}

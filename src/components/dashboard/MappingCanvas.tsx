@@ -1,229 +1,91 @@
-import { useState, useRef, useEffect } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import type { SchemaField } from '../../lib/mapping'
 import type { ManualMapping } from '../../types/integration'
 
-interface MappingCanvasProps {
-  sourceFields: string[]
-  destinationFields: string[]
+interface Props {
+  sourceFields: SchemaField[]
+  destinationFields: SchemaField[]
   mappings: ManualMapping[]
-  onConnect: (sourceField: string, destinationField: string) => void
+  disabled?: boolean
+  readOnly?: boolean
+  onConnect: (source: string, target: string) => void
 }
+interface Point { x: number; y: number }
+interface Geometry { width: number; height: number; source: Record<string, Point>; target: Record<string, Point> }
+const colors = ['#60a5fa', '#c084fc', '#f472b6', '#34d399', '#fbbf24', '#818cf8']
 
-interface FieldPosition {
-  field: string
-  top: number
-  x: number
-}
-
-const colors = [
-  'from-blue-500/30 to-blue-600/20',
-  'from-purple-500/30 to-purple-600/20',
-  'from-pink-500/30 to-pink-600/20',
-  'from-green-500/30 to-green-600/20',
-  'from-yellow-500/30 to-yellow-600/20',
-  'from-indigo-500/30 to-indigo-600/20',
-  'from-cyan-500/30 to-cyan-600/20',
-  'from-orange-500/30 to-orange-600/20',
-]
-
-export default function MappingCanvas({ sourceFields, destinationFields, mappings, onConnect }: MappingCanvasProps) {
-  const [selectedSource, setSelectedSource] = useState<string | null>(null)
-  const [sourcePositions, setSourcePositions] = useState<FieldPosition[]>([])
-  const [destPositions, setDestPositions] = useState<FieldPosition[]>([])
-  const containerRef = useRef<HTMLDivElement>(null)
-  const sourceListRef = useRef<HTMLUListElement>(null)
-  const destListRef = useRef<HTMLUListElement>(null)
-
+export default function MappingCanvas({ sourceFields, destinationFields, mappings, disabled = false, readOnly = false, onConnect }: Props) {
+  const [selected, setSelected] = useState<string | null>(null)
+  const [sourceQuery, setSourceQuery] = useState('')
+  const [targetQuery, setTargetQuery] = useState('')
+  const [geometry, setGeometry] = useState<Geometry>({ width: 0, height: 0, source: {}, target: {} })
+  const rootRef = useRef<HTMLDivElement>(null)
+  const sourceRef = useRef<HTMLUListElement>(null)
+  const targetRef = useRef<HTMLUListElement>(null)
+  const filteredSource = useMemo(() => sourceFields.filter((field) => field.path.toLowerCase().includes(sourceQuery.toLowerCase())), [sourceFields, sourceQuery])
+  const filteredTarget = useMemo(() => destinationFields.filter((field) => field.path.toLowerCase().includes(targetQuery.toLowerCase())), [destinationFields, targetQuery])
   useEffect(() => {
-    const calculatePositions = () => {
-      if (sourceListRef.current && destListRef.current) {
-        const sourceItems = sourceListRef.current.querySelectorAll('li')
-        const destItems = destListRef.current.querySelectorAll('li')
-        
-        const sourcePosArray: FieldPosition[] = []
-        const destPosArray: FieldPosition[] = []
-
-        sourceItems.forEach((item, index) => {
-          if (index < sourceFields.length) {
-            const rect = item.getBoundingClientRect()
-            const containerRect = containerRef.current?.getBoundingClientRect()
-            if (containerRect) {
-              sourcePosArray.push({
-                field: sourceFields[index],
-                top: rect.top - containerRect.top + rect.height / 2,
-                x: rect.right - containerRect.left,
-              })
-            }
-          }
+    const root = rootRef.current
+    const sourceList = sourceRef.current
+    const targetList = targetRef.current
+    if (!root || !sourceList || !targetList) return
+    let frame = 0
+    const measure = () => {
+      const rect = root.getBoundingClientRect()
+      const points = (list: HTMLUListElement, source: boolean) => {
+        const bounds = list.getBoundingClientRect()
+        const result: Record<string, Point> = Object.create(null)
+        list.querySelectorAll<HTMLButtonElement>('button[data-field]').forEach((button) => {
+          const box = button.getBoundingClientRect()
+          const y = box.top + box.height / 2
+          if (y < bounds.top || y > bounds.bottom) return
+          result[button.dataset.field!] = { x: (source ? box.right : box.left) - rect.left, y: y - rect.top }
         })
-
-        destItems.forEach((item, index) => {
-          if (index < destinationFields.length) {
-            const rect = item.getBoundingClientRect()
-            const containerRect = containerRef.current?.getBoundingClientRect()
-            if (containerRect) {
-              destPosArray.push({
-                field: destinationFields[index],
-                top: rect.top - containerRect.top + rect.height / 2,
-                x: rect.left - containerRect.left,
-              })
-            }
-          }
-        })
-
-        setSourcePositions(sourcePosArray)
-        setDestPositions(destPosArray)
+        return result
       }
+      setGeometry({ width: rect.width, height: rect.height, source: points(sourceList, true), target: points(targetList, false) })
     }
-
-    const timer = setTimeout(calculatePositions, 100)
-    calculatePositions()
-    window.addEventListener('resize', calculatePositions)
-    return () => {
-      clearTimeout(timer)
-      window.removeEventListener('resize', calculatePositions)
-    }
-  }, [sourceFields, destinationFields, mappings])
-
-  const getSourcePosition = (field: string) => sourcePositions.find((p) => p.field === field)?.top ?? 0
-  const getDestPosition = (field: string) => destPositions.find((p) => p.field === field)?.top ?? 0
-  const getSourceX = (field: string) => sourcePositions.find((p) => p.field === field)?.x ?? 0
-  const getDestX = (field: string) => destPositions.find((p) => p.field === field)?.x ?? 0
-  const getMappingColor = (index: number) => colors[index % colors.length]
-
-  const containerHeight = Math.max(
-    sourcePositions.length > 0 ? Math.max(...sourcePositions.map((p) => p.top)) : 0,
-    destPositions.length > 0 ? Math.max(...destPositions.map((p) => p.top)) : 0,
-  ) + 100
-
-  return (
-    <div ref={containerRef} className="relative" style={{ minHeight: `${containerHeight}px` }}>
-      <svg
-        className="pointer-events-none absolute inset-0 w-full"
-        style={{
-          height: '100%',
-          minHeight: `${containerHeight}px`,
-        }}
-        preserveAspectRatio="none"
-      >
-        {mappings.map((mapping, idx) => {
-          const y1 = getSourcePosition(mapping.sourceField)
-          const y2 = getDestPosition(mapping.destinationField)
-          const x1 = getSourceX(mapping.sourceField)
-          const x2 = getDestX(mapping.destinationField)
-          if (y1 === 0 || y2 === 0) return null
-
-          const containerWidth = containerRef.current?.offsetWidth ?? 1000
-          const midX = containerWidth / 2
-
-          if (x1 === 0 || x2 === 0) return null
-
-          const colorClass = getMappingColor(idx)
-          const colorMap: Record<string, string> = {
-            'from-blue-500/30 to-blue-600/20': '#3b82f6',
-            'from-purple-500/30 to-purple-600/20': '#a855f7',
-            'from-pink-500/30 to-pink-600/20': '#ec4899',
-            'from-green-500/30 to-green-600/20': '#10b981',
-            'from-yellow-500/30 to-yellow-600/20': '#eab308',
-            'from-indigo-500/30 to-indigo-600/20': '#6366f1',
-            'from-cyan-500/30 to-cyan-600/20': '#06b6d4',
-            'from-orange-500/30 to-orange-600/20': '#f97316',
-          }
-          const strokeColor = colorMap[colorClass] || '#3b82f6'
-
-          return (
-            <g key={mapping.id}>
-              <path
-                d={`M ${x1} ${y1} Q ${midX} ${(y1 + y2) / 2} ${x2} ${y2}`}
-                stroke={strokeColor}
-                strokeWidth="3"
-                fill="none"
-                opacity="0.7"
-                strokeLinecap="round"
-              />
-              <circle cx={x1} cy={y1} r="5" fill={strokeColor} opacity="0.7" />
-              <circle cx={x2} cy={y2} r="5" fill={strokeColor} opacity="0.7" />
-            </g>
-          )
+    const schedule = () => { window.cancelAnimationFrame(frame); frame = window.requestAnimationFrame(measure) }
+    const observer = typeof ResizeObserver === 'undefined' ? undefined : new ResizeObserver(schedule)
+    observer?.observe(root); observer?.observe(sourceList); observer?.observe(targetList)
+    sourceList.querySelectorAll('button[data-field]').forEach((button) => observer?.observe(button))
+    targetList.querySelectorAll('button[data-field]').forEach((button) => observer?.observe(button))
+    root.addEventListener('scroll', schedule, true)
+    window.addEventListener('resize', schedule)
+    schedule()
+    return () => { observer?.disconnect(); window.cancelAnimationFrame(frame); root.removeEventListener('scroll', schedule, true); window.removeEventListener('resize', schedule) }
+  }, [filteredSource, filteredTarget])
+  const chosen = selected && sourceFields.some((field) => field.path === selected) ? selected : null
+  const blocked = disabled || readOnly
+  return <section className="space-y-3" aria-label="Görsel alan eşleme">
+    <p role="status" className="hint">{readOnly ? 'Kayıtlı bağlantıları inceleyebilirsiniz.' : chosen ? `Seçili kaynak: ${chosen}. Bağlamak için hedef alanı seçin.` : 'Önce kaynak alanı, ardından hedef alanı seçin. Klavyeyle Tab ve Enter kullanabilirsiniz.'}</p>
+    {!readOnly && chosen && <button type="button" className="btn" disabled={disabled} onClick={() => setSelected(null)}>Kaynak seçimini kaldır</button>}
+    <div ref={rootRef} className="relative grid gap-12 sm:grid-cols-2 sm:gap-20">
+      <svg aria-hidden="true" className="pointer-events-none absolute inset-0 hidden h-full w-full sm:block" viewBox={`0 0 ${geometry.width || 1} ${geometry.height || 1}`} preserveAspectRatio="none">
+        {mappings.map((mapping, index) => {
+          const source = Object.hasOwn(geometry.source, mapping.sourceField) ? geometry.source[mapping.sourceField] : undefined
+          const target = Object.hasOwn(geometry.target, mapping.destinationField) ? geometry.target[mapping.destinationField] : undefined
+          if (!source || !target) return null
+          const middle = (source.x + target.x) / 2
+          return <path key={mapping.id} d={`M ${source.x} ${source.y} C ${middle} ${source.y}, ${middle} ${target.y}, ${target.x} ${target.y}`} stroke={colors[index % colors.length]} strokeWidth={2.5} opacity={0.8} fill="none" />
         })}
       </svg>
-
-      <div className="relative grid gap-16 sm:grid-cols-2">
-        <div className="space-y-3">
-          <p className="text-sm font-semibold text-white">Kaynak Alanlar</p>
-          <div className="space-y-2 text-sm text-slate-300">
-            {sourceFields.length ? (
-              <ul ref={sourceListRef} className="space-y-1">
-                {sourceFields.map((field) => {
-                  const mappingIdx = mappings.findIndex((m) => m.sourceField === field)
-                  const hasMapping = mappingIdx >= 0
-                  const bgColor = hasMapping ? getMappingColor(mappingIdx) : ''
-                  
-                  return (
-                    <li
-                      key={field}
-                      tabIndex={0}
-                      onClick={() => setSelectedSource(field)}
-                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedSource(field) }}
-                      className={`cursor-pointer rounded-2xl px-3 py-2 transition ${
-                        selectedSource === field 
-                          ? 'bg-accent text-slate-950 ring-2 ring-accent' 
-                          : hasMapping
-                          ? `bg-gradient-to-r ${bgColor} border border-white/20 text-slate-100`
-                          : 'bg-white/5 text-slate-300 hover:bg-white/10'
-                      }`}
-                    >
-                      {field}
-                    </li>
-                  )
-                })}
-              </ul>
-            ) : (
-              <p className="text-sm text-slate-500">Kaynak örnek girilmedi veya parser desteklenmiyor.</p>
-            )}
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          <p className="text-sm font-semibold text-white">Hedef Alanlar</p>
-          <div className="space-y-2 text-sm text-slate-300">
-            {destinationFields.length ? (
-              <ul ref={destListRef} className="space-y-1">
-                {destinationFields.map((field) => {
-                  const mappingIdx = mappings.findIndex((m) => m.destinationField === field)
-                  const hasMapping = mappingIdx >= 0
-                  const bgColor = hasMapping ? getMappingColor(mappingIdx) : ''
-                  
-                  return (
-                    <li
-                      key={field}
-                      tabIndex={0}
-                      onClick={() => {
-                        if (selectedSource) {
-                          onConnect(selectedSource, field)
-                          setSelectedSource(null)
-                        }
-                      }}
-                      onKeyDown={(e) => { if ((e.key === 'Enter' || e.key === ' ') && selectedSource) { onConnect(selectedSource, field); setSelectedSource(null) } }}
-                      className={`cursor-pointer rounded-2xl px-3 py-2 transition ${
-                        hasMapping
-                          ? `bg-gradient-to-r ${bgColor} border border-white/20 text-slate-100`
-                          : 'bg-white/5 text-slate-300 hover:bg-white/10'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span>{field}</span>
-                        <span className="text-xs text-slate-500">{selectedSource ? 'Bağla' : ''}</span>
-                      </div>
-                    </li>
-                  )
-                })}
-              </ul>
-            ) : (
-              <p className="text-sm text-slate-500">Hedef örnek girilmedi veya parser desteklenmiyor.</p>
-            )}
-          </div>
-        </div>
-      </div>
+      {([{ side: 'source', title: 'Kaynak alanlar', fields: filteredSource, query: sourceQuery, setQuery: setSourceQuery, ref: sourceRef }, { side: 'target', title: 'Hedef alanlar', fields: filteredTarget, query: targetQuery, setQuery: setTargetQuery, ref: targetRef }] as const).map((column) => <div key={column.side} className="relative min-w-0 space-y-3">
+        <label className="label">{column.title}<input className="field" placeholder="Alan yolu ara" value={column.query} onChange={(event) => column.setQuery(event.target.value)} /></label>
+        <ul ref={column.ref} className="max-h-[28rem] min-h-32 space-y-2 overflow-auto rounded-xl border border-white/10 bg-slate-950/70 p-2">
+          {column.fields.length === 0 && <li className="p-3 text-sm text-slate-400">Alan bulunamadı. Eşleme listesinden alan yolunu elle girebilirsiniz.</li>}
+          {column.fields.map((field) => {
+            const connected = mappings.some((mapping) => column.side === 'source' ? mapping.sourceField === field.path : mapping.destinationField === field.path)
+            const duplicate = chosen != null && mappings.some((mapping) => mapping.sourceField === chosen && mapping.destinationField === field.path)
+            const isSelected = column.side === 'source' && chosen === field.path
+            return <li key={field.path}><button type="button" data-field={field.path} className={`w-full rounded-lg border px-3 py-2 text-left text-sm transition disabled:cursor-default ${isSelected ? 'border-violet-300 bg-violet-500/30 text-white' : connected ? 'border-sky-400/40 bg-sky-500/10 text-slate-100' : 'border-white/10 bg-white/5 text-slate-300 hover:bg-white/10'}`} style={{ paddingLeft: `${12 + Math.min(field.depth, 6) * 12}px` }} aria-pressed={column.side === 'source' ? isSelected : undefined} aria-label={`${column.title}: ${field.path}, ${field.type}${connected ? ', bağlantı var' : ''}`} disabled={blocked || (column.side === 'target' && (!chosen || duplicate))} onClick={() => {
+              if (column.side === 'source') setSelected(field.path)
+              else if (chosen) { onConnect(chosen, field.path); setSelected(null) }
+            }}><span className="block break-all font-mono text-xs">{field.path}</span><span className="mt-1 block text-xs text-slate-400">{field.type}{field.repeated ? ' · Tekrarlanan' : ''}{field.kind === 'attribute' ? ' · Öznitelik' : ''}{connected ? ' · Bağlı' : ''}</span></button></li>
+          })}
+        </ul>
+      </div>)}
     </div>
-  )
+    <p className="hint">Çizgiler seçili şema çiftinin görünür alanları arasında gösterilir. Tüm bağlantılar aşağıdaki eşleme listesinde bulunur.</p>
+  </section>
 }
